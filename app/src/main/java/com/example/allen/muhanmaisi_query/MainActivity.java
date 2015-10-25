@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 Message msg = new Message();
                 msg.what = MainActivity.LoadAllDataFinish;
 
-                MainActivity.this.handler.sendMessage(msg);
+                MainActivity.this.handler.sendMessageDelayed(msg, 5000);
             }
         };
 
