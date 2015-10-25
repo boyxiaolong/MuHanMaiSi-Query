@@ -11,7 +11,9 @@ import java.util.List;
 public class ShowContent extends AppCompatActivity {
 
     private TextView textView;
-    @Override
+    private int getNormalBegin(int chapter){
+        return (chapter-1)*25;
+    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_content);
@@ -27,13 +29,13 @@ public class ShowContent extends AppCompatActivity {
                     List<String> chineseList = MainActivity.chineseList;
                     List<String> arbicList = MainActivity.abricList;
 
-                    int begin = Integer.parseInt(key);
-                    begin = (begin - 1) * 5;
+                    int chapter = Integer.parseInt(key);
+                    int begin = getNormalBegin(chapter);
                     StringBuilder builder = new StringBuilder();
-                    for (int i = begin; i < begin+25; ++i) {
-                        builder.append(arbicList.get(i) + "\n");
-                        builder.append(chineseList.get(i) + "\n");
-                    }
+                        for (int i = begin; i < begin+25 && i < chineseList.size(); ++i) {
+                            builder.append(arbicList.get(i) + "\n");
+                            builder.append(chineseList.get(i) + "\n");
+                        }
 
                     textView.setText(builder.toString());
                     textView.setMovementMethod(new ScrollingMovementMethod());

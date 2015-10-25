@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
             BufferedReader breader = new BufferedReader(reader);
             String str;
             while ((str = breader.readLine()) != null) {
+                if (str.matches(".*\\d+.*")) {
+                    continue;
+                }
                 arr.add(str);
             }
 
@@ -67,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 Message msg = new Message();
                 msg.what = MainActivity.LoadAllDataFinish;
 
-                MainActivity.this.handler.sendMessageDelayed(msg, 5000);
+                MainActivity.this.handler.sendMessageDelayed(msg, 1000);
             }
         };
 
