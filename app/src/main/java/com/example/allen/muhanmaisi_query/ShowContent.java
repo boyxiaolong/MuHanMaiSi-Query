@@ -39,7 +39,7 @@ public class ShowContent extends AppCompatActivity {
                     int begin = getNormalBegin(chapter);
                     StringBuilder builder = new StringBuilder();
                     for (int i = begin; i < begin+25 && i < chineseList.size(); ++i) {
-                        contentList.add(arbicList.get(i) + "\n" + chineseList.get(i) + "\n");
+                        contentList.add(arbicList.get(i) + "\n\n" + chineseList.get(i) + "\n");
                     }
 
                     curPage = 1;
