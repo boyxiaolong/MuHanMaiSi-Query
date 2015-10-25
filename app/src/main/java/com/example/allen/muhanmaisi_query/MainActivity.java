@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        String ss = getPackageName();
+
         ImageView imageView = (ImageView)findViewById(R.id.imageView);
         imageView.setImageResource(R.drawable.muhanmaisi);
 

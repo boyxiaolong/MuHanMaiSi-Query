@@ -1,12 +1,15 @@
 package com.example.allen.muhanmaisi_query;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +35,30 @@ public class ShowContent extends AppCompatActivity {
             if (bundle != null) {
                 String key = bundle.getString(TableShow.ChapterID);
                 if (key != null) {
+                    int chapter = Integer.parseInt(key);
+
+                    String audioEnd;
+                    MediaPlayer player = new MediaPlayer();
+                    if (chapter < 10) {
+                        audioEnd = "0" + chapter;
+                    }
+                    else {
+                        audioEnd = "" + chapter;
+                    }
+
+                    String path = "android.resource://"+getPackageName()+"/raw/muhanmaisi" + audioEnd;
+                    try {
+                        player.setDataSource(getApplicationContext(), Uri.parse(path));
+                        player.prepare();
+                        player.start();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                     List<String> chineseList = MainActivity.chineseList;
                     List<String> arbicList = MainActivity.abricList;
 
-                    int chapter = Integer.parseInt(key);
+
                     int begin = getNormalBegin(chapter);
                     StringBuilder builder = new StringBuilder();
                     for (int i = begin; i < begin+25 && i < chineseList.size(); ++i) {
