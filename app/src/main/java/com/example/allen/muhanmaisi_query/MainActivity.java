@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 1; i <= 33; ++i) {
             try {
                 InputStream instream = getResources().openRawResource(
-                        getResources().getIdentifier("raw/m"+i,
+                        getResources().getIdentifier("raw/m" + i,
                                 "raw", getPackageName()));
                 InputStreamReader reader = new InputStreamReader(instream);
                 BufferedReader breader = new BufferedReader(reader);
@@ -113,25 +113,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if(MotionEvent.ACTION_DOWN == event.getAction()){
-            count++;
-            if(count == 1){
-                firClick = System.currentTimeMillis();
-
-            } else if (count == 2){
-                secClick = System.currentTimeMillis();
-                if(secClick - firClick < 1000){
-                    //双击事件
-                    if (isLoadFinsh == false) {
-                        return true;
-                    }
-                    Intent intent = new Intent();
-                    intent.setClass(MainActivity.this, TableShow.class);
-                    startActivity(intent);
-                }
-                count = 0;
-                firClick = 0;
-                secClick = 0;
+            if (isLoadFinsh == false) {
+                return true;
             }
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, TableShow.class);
+            startActivity(intent);
         }
         return true;
     }

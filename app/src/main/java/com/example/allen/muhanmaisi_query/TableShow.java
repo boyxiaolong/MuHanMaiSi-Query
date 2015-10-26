@@ -49,7 +49,19 @@ public class TableShow extends AppCompatActivity {
                 button = new Button(getApplicationContext());
                 int curid = i * 3 + j + 1;
                 button.setText("第" + curid + "章");
-                button.setPadding(20, 20, 20, 20);
+                button.setPadding(30, 30, 40, 30);
+                switch (j)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        button.setGravity(Gravity.CENTER);
+                        break;
+                    case 2:
+                        break;
+                }
+                if (j == 1)
+                    button.setGravity(Gravity.CENTER);
                 button.setId(curid);
                 if (curid == curChapter) {
                     button.setBackgroundColor(Color.BLUE);
