@@ -100,13 +100,19 @@ public class ShowContent extends AppCompatActivity {
                 return;
             }
         }
-        if (curPage == 0) {
+        else if (curPage == 0) {
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < 6; ++i) {
                 builder.append(MainActivity.beginPrayList.get(i) + "\n");
             }
 
             textView.setText(builder.toString());
+            return;
+        }
+        else if (curPage == 6){
+            String res = MainActivity.explainList.get(chapter-1);
+
+            textView.setText(res);
             return;
         }
 
@@ -139,7 +145,7 @@ public class ShowContent extends AppCompatActivity {
     }
 
     public void nextPage(View view) {
-        if (curPage == 5){
+        if (curPage == 6){
             return;
         }
         ++curPage;

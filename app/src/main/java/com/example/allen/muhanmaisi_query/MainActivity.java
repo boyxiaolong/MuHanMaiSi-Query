@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.widget.ImageView;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     static List<String> chineseList = new ArrayList<String>();
     static List<String> abricList = new ArrayList<String>();
     static List<String> beginPrayList = new ArrayList<>();
+    static List<String> explainList = new ArrayList<>();
 
     private boolean isLoadFinsh = false;
 
@@ -39,6 +41,26 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private void loadFirstFile() {
+        for (int i = 1; i <= 33; ++i) {
+            try {
+                InputStream instream = getResources().openRawResource(
+                        getResources().getIdentifier("raw/m"+i,
+                                "raw", getPackageName()));
+                InputStreamReader reader = new InputStreamReader(instream);
+                BufferedReader breader = new BufferedReader(reader);
+                StringBuilder builder = new StringBuilder();
+                String str;
+                while ((str = breader.readLine()) != null) {
+                    builder.append(str);
+                }
+                explainList.add(builder.toString());
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     private void loadFile(int fileid, List<String> arr) {
         try{
             InputStream myInput = getResources().openRawResource(fileid);
@@ -74,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 loadFile(R.raw.chinese, chineseList);
                 loadFile(R.raw.abric, abricList);
                 loadFile(R.raw.begin, beginPrayList);
-
+                loadFirstFile();
                 Message msg = new Message();
                 msg.what = MainActivity.LoadAllDataFinish;
 
