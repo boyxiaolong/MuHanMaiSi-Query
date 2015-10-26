@@ -23,6 +23,7 @@ public class ShowContent extends AppCompatActivity {
     private int curFontSize;
     static private SharedPreferences sharedPreferences;
     private final String fontKeyStr = "fontKeyStr";
+    private int chapter = 0;
 
     private int getNormalBegin(int chapter){
         return (chapter-1)*25;
@@ -45,7 +46,7 @@ public class ShowContent extends AppCompatActivity {
             if (bundle != null) {
                 String key = bundle.getString(TableShow.ChapterID);
                 if (key != null) {
-                    int chapter = Integer.parseInt(key);
+                    chapter = Integer.parseInt(key);
 
                     String audioEnd;
                     MediaPlayer player = new MediaPlayer();
@@ -75,6 +76,9 @@ public class ShowContent extends AppCompatActivity {
                     }
 
                     curPage = 0;
+                    if (chapter == 1) {
+                        curPage = -1;
+                    }
                     showPageContent();
                 }
             }
@@ -82,10 +86,24 @@ public class ShowContent extends AppCompatActivity {
     }
 
     private void showPageContent(){
+        if (curPage == -1) {
+            if (chapter == 1) {
+                StringBuilder builder = new StringBuilder();
+                for (int i = 6; i < MainActivity.beginPrayList.size(); ++i) {
+                    builder.append(MainActivity.beginPrayList.get(i));
+                }
+
+                textView.setText(builder.toString() + "\n");
+                return;
+            }
+            else {
+                return;
+            }
+        }
         if (curPage == 0) {
             StringBuilder builder = new StringBuilder();
-            for (int i = 0; i < MainActivity.beginPrayList.size(); ++i) {
-                builder.append(MainActivity.beginPrayList.get(i));
+            for (int i = 0; i < 6; ++i) {
+                builder.append(MainActivity.beginPrayList.get(i) + "\n");
             }
 
             textView.setText(builder.toString());
@@ -108,9 +126,14 @@ public class ShowContent extends AppCompatActivity {
     private final float Min_Distance = 150;
 
     public void prePage(View view) {
-        if (curPage == 0) {
+        if (chapter == 1) {
+            if (curPage == -1)
+                return;
+        }
+        else if (curPage == 0) {
             return;
         }
+
         --curPage;
         showPageContent();
     }
