@@ -1,6 +1,8 @@
 package com.example.allen.muhanmaisi_query;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,7 +20,9 @@ public class ShowContent extends AppCompatActivity {
     private TextView textView;
     private int curPage = 0;
     private List<String> contentList = new ArrayList<>();
-    private int curFontSize = 20;
+    private int curFontSize;
+    static private SharedPreferences sharedPreferences;
+    private final String fontKeyStr = "fontKeyStr";
 
     private int getNormalBegin(int chapter){
         return (chapter-1)*25;
@@ -29,6 +33,11 @@ public class ShowContent extends AppCompatActivity {
 
         textView = (TextView)findViewById(R.id.textView);
         textView.setMovementMethod(new ScrollingMovementMethod());
+
+        sharedPreferences = getSharedPreferences(fontKeyStr, Context.MODE_PRIVATE);
+
+        curFontSize = sharedPreferences.getInt(fontKeyStr, 20);
+        textView.setTextSize(curFontSize);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -116,10 +125,17 @@ public class ShowContent extends AppCompatActivity {
 
     public void zoomout(View view) {
         curFontSize += 2;
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(fontKeyStr, curFontSize);
+        boolean res = editor.commit();
+        editor.apply();
         textView.setTextSize(curFontSize);
     }
     public void zoomin(View view) {
         curFontSize -= 2;
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(fontKeyStr, curFontSize);
+        editor.commit();
         textView.setTextSize(curFontSize);
     }
 }
