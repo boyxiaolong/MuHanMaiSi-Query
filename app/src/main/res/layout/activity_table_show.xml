@@ -8,10 +8,4 @@
     tools:context="com.example.allen.muhanmaisi_query.TableShow"
     android:id="@+id/tableLayout">
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </TableRow>
-
 </TableLayout>
