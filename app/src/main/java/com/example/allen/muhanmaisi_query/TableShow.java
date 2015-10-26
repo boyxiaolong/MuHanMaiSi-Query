@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -18,6 +19,8 @@ public class TableShow extends AppCompatActivity {
     static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     static java.util.Date date;
     static final int lastChapter = 32;
+    private final int settingId = 34;
+    private Button settingButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +70,21 @@ public class TableShow extends AppCompatActivity {
                 });
                 tableRow.addView(button);
             }
+
             tableLayout.addView(tableRow);
         }
+
+        tableRow = new TableRow(getApplicationContext());
+        tableRow.setGravity(Gravity.RIGHT);
+        settingButton = new Button(getApplicationContext());
+        tableRow.addView(settingButton);
+        settingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         setContentView(tableLayout);
     }
 

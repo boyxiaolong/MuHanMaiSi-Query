@@ -6,7 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
-import android.view.MotionEvent;
+import android.view.View;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -18,6 +18,7 @@ public class ShowContent extends AppCompatActivity {
     private TextView textView;
     private int curPage = 0;
     private List<String> contentList = new ArrayList<>();
+    private int curFontSize = 20;
 
     private int getNormalBegin(int chapter){
         return (chapter-1)*25;
@@ -58,7 +59,6 @@ public class ShowContent extends AppCompatActivity {
                     List<String> chineseList = MainActivity.chineseList;
                     List<String> arbicList = MainActivity.abricList;
 
-
                     int begin = getNormalBegin(chapter);
                     StringBuilder builder = new StringBuilder();
                     for (int i = begin; i < begin+25 && i < chineseList.size(); ++i) {
@@ -88,33 +88,28 @@ public class ShowContent extends AppCompatActivity {
     private float x1,x2;
     private final float Min_Distance = 150;
 
-    public boolean onTouchEvent(MotionEvent event)
-    {
-        switch (event.getAction())
-        {
-            case MotionEvent.ACTION_DOWN:
-                x1 = event.getX();
-                break;
-            case MotionEvent.ACTION_UP:
-                x2 = event.getX();
-                if (x2 - x1 > Min_Distance)
-                {
-                    if (curPage == 1) {
-                        break;
-                    }
-                    --curPage;
-                    showPageContent();
-                }
-                else if (x1 - x2 > Min_Distance)
-                {
-                    if (curPage == 5){
-                        break;
-                    }
-                    ++curPage;
-                    showPageContent();
-                }
-                break;
+    public void prePage(View view) {
+        if (curPage == 1) {
+            return;
         }
-        return super.onTouchEvent(event);
+        --curPage;
+        showPageContent();
+    }
+
+    public void nextPage(View view) {
+        if (curPage == 5){
+            return;
+        }
+        ++curPage;
+        showPageContent();
+    }
+
+    public void zoomout(View view) {
+        curFontSize += 2;
+        textView.setTextSize(curFontSize);
+    }
+    public void zoomin(View view) {
+        curFontSize -= 2;
+        textView.setTextSize(curFontSize);
     }
 }
