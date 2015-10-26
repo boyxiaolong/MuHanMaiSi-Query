@@ -65,7 +65,7 @@ public class ShowContent extends AppCompatActivity {
                         contentList.add(arbicList.get(i) + "\n\n" + chineseList.get(i) + "\n");
                     }
 
-                    curPage = 1;
+                    curPage = 0;
                     showPageContent();
                 }
             }
@@ -73,6 +73,16 @@ public class ShowContent extends AppCompatActivity {
     }
 
     private void showPageContent(){
+        if (curPage == 0) {
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < MainActivity.beginPrayList.size(); ++i) {
+                builder.append(MainActivity.beginPrayList.get(i));
+            }
+
+            textView.setText(builder.toString());
+            return;
+        }
+
         int begin = (curPage-1)*5;
         int end = begin + 5;
         StringBuilder builder = new StringBuilder();
@@ -89,7 +99,7 @@ public class ShowContent extends AppCompatActivity {
     private final float Min_Distance = 150;
 
     public void prePage(View view) {
-        if (curPage == 1) {
+        if (curPage == 0) {
             return;
         }
         --curPage;

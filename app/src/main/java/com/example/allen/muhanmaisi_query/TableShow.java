@@ -18,7 +18,7 @@ public class TableShow extends AppCompatActivity {
     static String dateString = "2015-10-25";
     static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     static java.util.Date date;
-    static final int lastChapter = 32;
+    static final int lastChapter = 31;
     private final int settingId = 34;
     private Button settingButton;
 

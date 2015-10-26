@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     static final int LoadAllDataFinish = 1000;
     static List<String> chineseList = new ArrayList<String>();
     static List<String> abricList = new ArrayList<String>();
+    static List<String> beginPrayList = new ArrayList<>();
+
     private boolean isLoadFinsh = false;
 
     private Handler handler = new Handler(){
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 loadFile(R.raw.chinese, chineseList);
                 loadFile(R.raw.abric, abricList);
+                loadFile(R.raw.begin, beginPrayList);
 
                 Message msg = new Message();
                 msg.what = MainActivity.LoadAllDataFinish;
