@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
 
 import java.text.SimpleDateFormat;
@@ -17,8 +16,6 @@ public class TableShow extends AppCompatActivity {
     static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     static java.util.Date date;
     static final int lastChapter = 31;
-    private final int settingId = 34;
-    private Button settingButton;
     static public int curChapter;
 
     @Override
@@ -38,7 +35,10 @@ public class TableShow extends AppCompatActivity {
         diffInDays %= 33;
 
         curChapter = lastChapter + diffInDays;
-
+        curChapter %= 33;
+        if (curChapter == 0) {
+            curChapter = 33;
+        }
 
         GridView gridView = (GridView)findViewById(R.id.gridview);
         try{
