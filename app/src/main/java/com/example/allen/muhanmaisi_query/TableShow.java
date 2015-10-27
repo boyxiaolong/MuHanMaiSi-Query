@@ -1,14 +1,12 @@
 package com.example.allen.muhanmaisi_query;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.TableLayout;
-import android.widget.TableRow;
+import android.widget.GridView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,10 +19,12 @@ public class TableShow extends AppCompatActivity {
     static final int lastChapter = 31;
     private final int settingId = 34;
     private Button settingButton;
+    static public int curChapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_table_show);
         try {
             date = sdf.parse(dateString);
         }
@@ -37,67 +37,27 @@ public class TableShow extends AppCompatActivity {
 
         diffInDays %= 33;
 
-        final int curChapter = lastChapter + diffInDays;
+        curChapter = lastChapter + diffInDays;
 
-        TableLayout tableLayout = new TableLayout(getApplicationContext());
-        TableRow tableRow;
-        Button button;
 
-        for (int i = 0; i < 11; i++) {
-            tableRow = new TableRow(getApplicationContext());
-            for (int j = 0; j < 3; j++) {
-                button = new Button(getApplicationContext());
-                int curid = i * 3 + j + 1;
-                button.setText("第" + curid + "章");
-                button.setPadding(30, 30, 40, 30);
-                switch (j)
-                {
-                    case 0:
-                        break;
-                    case 1:
-                        button.setGravity(Gravity.CENTER);
-                        break;
-                    case 2:
-                        break;
+        GridView gridView = (GridView)findViewById(R.id.gridview);
+        try{
+            gridView.setAdapter(new GridAdapter(this));
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent();
+                    intent.setClass(TableShow.this, ShowContent.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(ChapterID, "" + (position+1));
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
-                if (j == 1)
-                    button.setGravity(Gravity.CENTER);
-                button.setId(curid);
-                if (curid == curChapter) {
-                    button.setBackgroundColor(Color.BLUE);
-                }
-
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Button curBrn = (Button) v;
-                        int id = curBrn.getId();
-                        Intent intent = new Intent();
-                        intent.setClass(TableShow.this, ShowContent.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString(ChapterID, "" + id);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                    }
-                });
-                tableRow.addView(button);
-            }
-
-            tableLayout.addView(tableRow);
+            });
         }
-
-        tableRow = new TableRow(getApplicationContext());
-        tableRow.setGravity(Gravity.RIGHT);
-        settingButton = new Button(getApplicationContext());
-        tableRow.addView(settingButton);
-        settingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        setContentView(tableLayout);
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }
