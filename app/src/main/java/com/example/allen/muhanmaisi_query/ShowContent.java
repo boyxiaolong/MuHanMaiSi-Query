@@ -3,11 +3,15 @@ package com.example.allen.muhanmaisi_query;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
+import android.graphics.PointF;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
+import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,10 +24,27 @@ public class ShowContent extends AppCompatActivity {
     private TextView textView;
     private int curPage = 0;
     private List<String> contentList = new ArrayList<>();
-    private int curFontSize;
+    private float curFontSize;
     static private SharedPreferences sharedPreferences;
     private final String fontKeyStr = "fontKeyStr";
     private int chapter = 0;
+
+    enum Mode {
+        NONE, DRAG, ZOOM
+    }
+
+    Mode mode = Mode.NONE;
+    static final int MIN_FONT_SIZE = 20;
+    static final int MAX_FONT_SIZE = 70;
+    PointF start = new PointF();
+
+    Point tvPos0 = new Point();
+    Point tvPos1 = new Point();
+    Point tvPosSave = new Point();
+
+    float oldDist = 1f;
+    int scrWidth;
+    int scrHeight;
 
     private int getNormalBegin(int chapter){
         return (chapter-1)*25;
@@ -37,8 +58,37 @@ public class ShowContent extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences(fontKeyStr, Context.MODE_PRIVATE);
 
-        curFontSize = sharedPreferences.getInt(fontKeyStr, 20);
+        curFontSize = sharedPreferences.getFloat(fontKeyStr, 20.0f);
         textView.setTextSize(curFontSize);
+        textView.setOnTouchListener(new android.view.View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+                        start.set(event.getX(), event.getY());
+                        tvPos0.set((int) event.getX(), (int) event.getY());
+                        mode = Mode.DRAG;
+                        break;
+                    case MotionEvent.ACTION_POINTER_DOWN:
+                        oldDist = spacing(event);
+                        if (oldDist > 10f) {
+                            mode = Mode.ZOOM;
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_POINTER_UP:
+                        mode = Mode.NONE;
+                        tvPos1.set(tvPosSave.x, tvPosSave.y);
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        if (mode == Mode.ZOOM) {
+                            doZoom(event);
+                        }
+                        break;
+                }
+                return true;
+            }
+        });
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -152,19 +202,36 @@ public class ShowContent extends AppCompatActivity {
         showPageContent();
     }
 
-    public void zoomout(View view) {
-        curFontSize += 2;
+    private void updateTextSize() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(fontKeyStr, curFontSize);
-        boolean res = editor.commit();
-        editor.apply();
-        textView.setTextSize(curFontSize);
-    }
-    public void zoomin(View view) {
-        curFontSize -= 2;
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(fontKeyStr, curFontSize);
+        editor.putFloat(fontKeyStr, curFontSize);
         editor.commit();
-        textView.setTextSize(curFontSize);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, curFontSize);
+    }
+
+    private void doZoom(MotionEvent event) {
+        float newDist = spacing(event);
+        if (newDist > 10f) {
+            float scale = newDist / oldDist;
+            if (scale > 1) {
+                scale = 1.05f;
+            } else if (scale < 1) {
+                scale = 0.95f;
+            }
+            curFontSize = textView.getTextSize() * scale;
+            if ((curFontSize < MAX_FONT_SIZE && curFontSize > MIN_FONT_SIZE)
+                    || (curFontSize >= MAX_FONT_SIZE && scale < 1)
+                    || (curFontSize <= MIN_FONT_SIZE && scale > 1)) {
+                updateTextSize();
+            }
+        }
+    }
+
+    /** Determine the space between the first two fingers */
+    private float spacing(MotionEvent event) {
+        float x = event.getX(0) - event.getX(1);
+        float y = event.getY(0) - event.getY(1);
+        float res = x*x + y *y;
+        return (float)Math.sqrt(res);
     }
 }

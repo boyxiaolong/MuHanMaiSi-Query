@@ -25,22 +25,6 @@
         android:layout_marginLeft="10dp"
         android:text="上一页"
         android:onClick="prePage"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/lastpage"
-        android:id="@+id/zoomout"
-        android:gravity="center"
-        android:text="放大"
-        android:onClick="zoomout"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/zoomout"
-        android:id="@+id/zoomin"
-        android:gravity="center"
-        android:text="缩小"
-        android:onClick="zoomin"/>
 </RelativeLayout>
 
     android:divide="@drawable/spacer_medium"
