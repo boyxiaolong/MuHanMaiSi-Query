@@ -86,7 +86,7 @@ public class ShowContent extends AppCompatActivity {
                         }
                         break;
                 }
-                return true;
+                return false;
             }
         });
 

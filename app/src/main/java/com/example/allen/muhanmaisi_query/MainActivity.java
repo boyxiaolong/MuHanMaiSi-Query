@@ -31,9 +31,6 @@ public class MainActivity extends AppCompatActivity {
                 case MainActivity.LoadAllDataFinish:
                 {
                     isLoadFinsh = true;
-                    Intent intent = new Intent();
-                    intent.setClass(MainActivity.this, TableShow.class);
-                    startActivity(intent);
                 }
                 break;
             }
