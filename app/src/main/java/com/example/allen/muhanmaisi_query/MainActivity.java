@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         String ss = getPackageName();
 
         ImageView imageView = (ImageView)findViewById(R.id.imageView);
-        imageView.setImageResource(R.drawable.muhanmaisi);
+        imageView.setImageResource(R.drawable.conver);
 
         Thread thread = new Thread() {
             @Override
