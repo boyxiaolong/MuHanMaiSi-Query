@@ -94,8 +94,13 @@ public class TableShow extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     switch (position) {
                         case 0:
+                            if (popupWindow.isShowing()) {
+                                popupWindow.dismiss();
+                            }
+                            else {
+                                popupWindow.showAsDropDown(view);
+                            }
                             toNextActivity(position+1);
-                            popupWindow.dismiss();
                             break;
                         case 1:
                             break;
