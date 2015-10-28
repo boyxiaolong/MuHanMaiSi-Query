@@ -34,8 +34,8 @@ public class ShowContent extends AppCompatActivity {
     }
 
     Mode mode = Mode.NONE;
-    static final int MIN_FONT_SIZE = 20;
-    static final int MAX_FONT_SIZE = 70;
+    static final int MIN_FONT_SIZE = 30;
+    static final int MAX_FONT_SIZE = 60;
     PointF start = new PointF();
 
     Point tvPos0 = new Point();
@@ -58,10 +58,10 @@ public class ShowContent extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences(fontKeyStr, Context.MODE_PRIVATE);
 
-        curFontSize = sharedPreferences.getFloat(fontKeyStr, 20.0f);
-        textView.setTextSize(curFontSize);
-        textView.setOnTouchListener(new android.view.View.OnTouchListener() {
+        curFontSize = sharedPreferences.getFloat(fontKeyStr, 30.0f);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, curFontSize);
 
+        textView.setOnTouchListener(new android.view.View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction() & MotionEvent.ACTION_MASK) {
                     case MotionEvent.ACTION_DOWN:
