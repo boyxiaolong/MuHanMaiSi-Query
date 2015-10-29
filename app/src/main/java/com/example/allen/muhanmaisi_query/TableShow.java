@@ -22,6 +22,7 @@ public class TableShow extends AppCompatActivity {
     static final int lastChapter = 31;
     static public int curChapter;
     PopupWindow popupWindow;
+    private int selectedChapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +52,12 @@ public class TableShow extends AppCompatActivity {
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    int tmpChapter = position + 1;
-                    if (tmpChapter == curChapter) {
+                    selectedChapter = position + 1;
+                    if (selectedChapter == curChapter) {
                         showPopupWindow(view);
                     }
                     else {
-                        toNextActivity(tmpChapter);
+                        toNextActivity(selectedChapter);
                     }
                 }
             });
@@ -100,7 +101,7 @@ public class TableShow extends AppCompatActivity {
                             else {
                                 popupWindow.showAsDropDown(view);
                             }
-                            toNextActivity(position+1);
+                            toNextActivity(selectedChapter);
                             break;
                         case 1:
                             break;
