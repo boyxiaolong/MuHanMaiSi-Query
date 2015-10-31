@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     static List<String> abricList = new ArrayList<String>();
     static List<String> beginPrayList = new ArrayList<>();
     static List<String> explainList = new ArrayList<>();
+    static MyHttpAsynClient httpAsynClient = new MyHttpAsynClient();
 
     private boolean isLoadFinsh = false;
 
@@ -79,8 +80,12 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MyHttpAsynClient.url = getResources().getString(R.string.ipstr);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        httpAsynClient.login();
 
         String ss = getPackageName();
 

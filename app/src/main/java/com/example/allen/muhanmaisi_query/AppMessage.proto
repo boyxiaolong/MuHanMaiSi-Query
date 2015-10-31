@@ -1,0 +1,14 @@
+option java_package = "com.example.allen.muhanmaisi_query";
+option java_outer_classname = "AppMessage";
+
+message Login {
+	required string name = 1;
+	required string password = 2;
+}
+
+message ActorInfo
+{
+    required string token = 1;
+    required string id = 2;
+    required int32 readnum = 3;
+}
