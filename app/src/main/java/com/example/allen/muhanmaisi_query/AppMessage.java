@@ -13,29 +13,38 @@ public final class AppMessage {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string name = 1;</code>
+     * <code>optional int32 id = 1 [default = 1];</code>
+     */
+    boolean hasId();
+    /**
+     * <code>optional int32 id = 1 [default = 1];</code>
+     */
+    int getId();
+
+    /**
+     * <code>optional string name = 2;</code>
      */
     boolean hasName();
     /**
-     * <code>required string name = 1;</code>
+     * <code>optional string name = 2;</code>
      */
     java.lang.String getName();
     /**
-     * <code>required string name = 1;</code>
+     * <code>optional string name = 2;</code>
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
-     * <code>required string password = 2;</code>
+     * <code>optional string password = 3;</code>
      */
     boolean hasPassword();
     /**
-     * <code>required string password = 2;</code>
+     * <code>optional string password = 3;</code>
      */
     java.lang.String getPassword();
     /**
-     * <code>required string password = 2;</code>
+     * <code>optional string password = 3;</code>
      */
     com.google.protobuf.ByteString
         getPasswordBytes();
@@ -92,15 +101,20 @@ public final class AppMessage {
               }
               break;
             }
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 8: {
               bitField0_ |= 0x00000001;
-              name_ = bs;
+              id_ = input.readInt32();
               break;
             }
             case 18: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000002;
+              name_ = bs;
+              break;
+            }
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000004;
               password_ = bs;
               break;
             }
@@ -144,16 +158,31 @@ public final class AppMessage {
     }
 
     private int bitField0_;
-    public static final int NAME_FIELD_NUMBER = 1;
-    private java.lang.Object name_;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
     /**
-     * <code>required string name = 1;</code>
+     * <code>optional int32 id = 1 [default = 1];</code>
      */
-    public boolean hasName() {
+    public boolean hasId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string name = 1;</code>
+     * <code>optional int32 id = 1 [default = 1];</code>
+     */
+    public int getId() {
+      return id_;
+    }
+
+    public static final int NAME_FIELD_NUMBER = 2;
+    private java.lang.Object name_;
+    /**
+     * <code>optional string name = 2;</code>
+     */
+    public boolean hasName() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string name = 2;</code>
      */
     public java.lang.String getName() {
       java.lang.Object ref = name_;
@@ -170,7 +199,7 @@ public final class AppMessage {
       }
     }
     /**
-     * <code>required string name = 1;</code>
+     * <code>optional string name = 2;</code>
      */
     public com.google.protobuf.ByteString
         getNameBytes() {
@@ -186,16 +215,16 @@ public final class AppMessage {
       }
     }
 
-    public static final int PASSWORD_FIELD_NUMBER = 2;
+    public static final int PASSWORD_FIELD_NUMBER = 3;
     private java.lang.Object password_;
     /**
-     * <code>required string password = 2;</code>
+     * <code>optional string password = 3;</code>
      */
     public boolean hasPassword() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required string password = 2;</code>
+     * <code>optional string password = 3;</code>
      */
     public java.lang.String getPassword() {
       java.lang.Object ref = password_;
@@ -212,7 +241,7 @@ public final class AppMessage {
       }
     }
     /**
-     * <code>required string password = 2;</code>
+     * <code>optional string password = 3;</code>
      */
     public com.google.protobuf.ByteString
         getPasswordBytes() {
@@ -229,6 +258,7 @@ public final class AppMessage {
     }
 
     private void initFields() {
+      id_ = 1;
       name_ = "";
       password_ = "";
     }
@@ -238,14 +268,6 @@ public final class AppMessage {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPassword()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -254,10 +276,13 @@ public final class AppMessage {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getNameBytes());
+        output.writeInt32(1, id_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getPasswordBytes());
+        output.writeBytes(2, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, getPasswordBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -270,11 +295,15 @@ public final class AppMessage {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getNameBytes());
+          .computeInt32Size(1, id_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getPasswordBytes());
+          .computeBytesSize(2, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, getPasswordBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -393,10 +422,12 @@ public final class AppMessage {
 
       public Builder clear() {
         super.clear();
-        name_ = "";
+        id_ = 1;
         bitField0_ = (bitField0_ & ~0x00000001);
-        password_ = "";
+        name_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
+        password_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -428,9 +459,13 @@ public final class AppMessage {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.name_ = name_;
+        result.id_ = id_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
+        }
+        result.name_ = name_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
         }
         result.password_ = password_;
         result.bitField0_ = to_bitField0_;
@@ -449,13 +484,16 @@ public final class AppMessage {
 
       public Builder mergeFrom(com.example.allen.muhanmaisi_query.AppMessage.Login other) {
         if (other == com.example.allen.muhanmaisi_query.AppMessage.Login.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
         if (other.hasName()) {
-          bitField0_ |= 0x00000001;
+          bitField0_ |= 0x00000002;
           name_ = other.name_;
           onChanged();
         }
         if (other.hasPassword()) {
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000004;
           password_ = other.password_;
           onChanged();
         }
@@ -464,14 +502,6 @@ public final class AppMessage {
       }
 
       public final boolean isInitialized() {
-        if (!hasName()) {
-          
-          return false;
-        }
-        if (!hasPassword()) {
-          
-          return false;
-        }
         return true;
       }
 
@@ -494,15 +524,47 @@ public final class AppMessage {
       }
       private int bitField0_;
 
-      private java.lang.Object name_ = "";
+      private int id_ = 1;
       /**
-       * <code>required string name = 1;</code>
+       * <code>optional int32 id = 1 [default = 1];</code>
        */
-      public boolean hasName() {
+      public boolean hasId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>optional int32 id = 1 [default = 1];</code>
+       */
+      public int getId() {
+        return id_;
+      }
+      /**
+       * <code>optional int32 id = 1 [default = 1];</code>
+       */
+      public Builder setId(int value) {
+        bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 id = 1 [default = 1];</code>
+       */
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 1;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>optional string name = 2;</code>
+       */
+      public boolean hasName() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string name = 2;</code>
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -519,7 +581,7 @@ public final class AppMessage {
         }
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>optional string name = 2;</code>
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -535,36 +597,36 @@ public final class AppMessage {
         }
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>optional string name = 2;</code>
        */
       public Builder setName(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  bitField0_ |= 0x00000002;
         name_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>optional string name = 2;</code>
        */
       public Builder clearName() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000002);
         name_ = getDefaultInstance().getName();
         onChanged();
         return this;
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>optional string name = 2;</code>
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  bitField0_ |= 0x00000002;
         name_ = value;
         onChanged();
         return this;
@@ -572,13 +634,13 @@ public final class AppMessage {
 
       private java.lang.Object password_ = "";
       /**
-       * <code>required string password = 2;</code>
+       * <code>optional string password = 3;</code>
        */
       public boolean hasPassword() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required string password = 2;</code>
+       * <code>optional string password = 3;</code>
        */
       public java.lang.String getPassword() {
         java.lang.Object ref = password_;
@@ -595,7 +657,7 @@ public final class AppMessage {
         }
       }
       /**
-       * <code>required string password = 2;</code>
+       * <code>optional string password = 3;</code>
        */
       public com.google.protobuf.ByteString
           getPasswordBytes() {
@@ -611,36 +673,36 @@ public final class AppMessage {
         }
       }
       /**
-       * <code>required string password = 2;</code>
+       * <code>optional string password = 3;</code>
        */
       public Builder setPassword(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000004;
         password_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string password = 2;</code>
+       * <code>optional string password = 3;</code>
        */
       public Builder clearPassword() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         password_ = getDefaultInstance().getPassword();
         onChanged();
         return this;
       }
       /**
-       * <code>required string password = 2;</code>
+       * <code>optional string password = 3;</code>
        */
       public Builder setPasswordBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000004;
         password_ = value;
         onChanged();
         return this;
@@ -662,39 +724,48 @@ public final class AppMessage {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string token = 1;</code>
+     * <code>optional int32 id = 1 [default = 2];</code>
+     */
+    boolean hasId();
+    /**
+     * <code>optional int32 id = 1 [default = 2];</code>
+     */
+    int getId();
+
+    /**
+     * <code>optional string token = 2;</code>
      */
     boolean hasToken();
     /**
-     * <code>required string token = 1;</code>
+     * <code>optional string token = 2;</code>
      */
     java.lang.String getToken();
     /**
-     * <code>required string token = 1;</code>
+     * <code>optional string token = 2;</code>
      */
     com.google.protobuf.ByteString
         getTokenBytes();
 
     /**
-     * <code>required string id = 2;</code>
+     * <code>optional string actorid = 3;</code>
      */
-    boolean hasId();
+    boolean hasActorid();
     /**
-     * <code>required string id = 2;</code>
+     * <code>optional string actorid = 3;</code>
      */
-    java.lang.String getId();
+    java.lang.String getActorid();
     /**
-     * <code>required string id = 2;</code>
+     * <code>optional string actorid = 3;</code>
      */
     com.google.protobuf.ByteString
-        getIdBytes();
+        getActoridBytes();
 
     /**
-     * <code>required int32 readnum = 3;</code>
+     * <code>optional int32 readnum = 4;</code>
      */
     boolean hasReadnum();
     /**
-     * <code>required int32 readnum = 3;</code>
+     * <code>optional int32 readnum = 4;</code>
      */
     int getReadnum();
   }
@@ -750,20 +821,25 @@ public final class AppMessage {
               }
               break;
             }
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 8: {
               bitField0_ |= 0x00000001;
-              token_ = bs;
+              id_ = input.readInt32();
               break;
             }
             case 18: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000002;
-              id_ = bs;
+              token_ = bs;
               break;
             }
-            case 24: {
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000004;
+              actorid_ = bs;
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
               readnum_ = input.readInt32();
               break;
             }
@@ -807,16 +883,31 @@ public final class AppMessage {
     }
 
     private int bitField0_;
-    public static final int TOKEN_FIELD_NUMBER = 1;
-    private java.lang.Object token_;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
     /**
-     * <code>required string token = 1;</code>
+     * <code>optional int32 id = 1 [default = 2];</code>
      */
-    public boolean hasToken() {
+    public boolean hasId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string token = 1;</code>
+     * <code>optional int32 id = 1 [default = 2];</code>
+     */
+    public int getId() {
+      return id_;
+    }
+
+    public static final int TOKEN_FIELD_NUMBER = 2;
+    private java.lang.Object token_;
+    /**
+     * <code>optional string token = 2;</code>
+     */
+    public boolean hasToken() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string token = 2;</code>
      */
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
@@ -833,7 +924,7 @@ public final class AppMessage {
       }
     }
     /**
-     * <code>required string token = 1;</code>
+     * <code>optional string token = 2;</code>
      */
     public com.google.protobuf.ByteString
         getTokenBytes() {
@@ -849,19 +940,19 @@ public final class AppMessage {
       }
     }
 
-    public static final int ID_FIELD_NUMBER = 2;
-    private java.lang.Object id_;
+    public static final int ACTORID_FIELD_NUMBER = 3;
+    private java.lang.Object actorid_;
     /**
-     * <code>required string id = 2;</code>
+     * <code>optional string actorid = 3;</code>
      */
-    public boolean hasId() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+    public boolean hasActorid() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required string id = 2;</code>
+     * <code>optional string actorid = 3;</code>
      */
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
+    public java.lang.String getActorid() {
+      java.lang.Object ref = actorid_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
@@ -869,46 +960,47 @@ public final class AppMessage {
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
-          id_ = s;
+          actorid_ = s;
         }
         return s;
       }
     }
     /**
-     * <code>required string id = 2;</code>
+     * <code>optional string actorid = 3;</code>
      */
     public com.google.protobuf.ByteString
-        getIdBytes() {
-      java.lang.Object ref = id_;
+        getActoridBytes() {
+      java.lang.Object ref = actorid_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        id_ = b;
+        actorid_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int READNUM_FIELD_NUMBER = 3;
+    public static final int READNUM_FIELD_NUMBER = 4;
     private int readnum_;
     /**
-     * <code>required int32 readnum = 3;</code>
+     * <code>optional int32 readnum = 4;</code>
      */
     public boolean hasReadnum() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>required int32 readnum = 3;</code>
+     * <code>optional int32 readnum = 4;</code>
      */
     public int getReadnum() {
       return readnum_;
     }
 
     private void initFields() {
+      id_ = 2;
       token_ = "";
-      id_ = "";
+      actorid_ = "";
       readnum_ = 0;
     }
     private byte memoizedIsInitialized = -1;
@@ -917,18 +1009,6 @@ public final class AppMessage {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasToken()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasReadnum()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -937,13 +1017,16 @@ public final class AppMessage {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getTokenBytes());
+        output.writeInt32(1, id_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getIdBytes());
+        output.writeBytes(2, getTokenBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt32(3, readnum_);
+        output.writeBytes(3, getActoridBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, readnum_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -956,15 +1039,19 @@ public final class AppMessage {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getTokenBytes());
+          .computeInt32Size(1, id_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getIdBytes());
+          .computeBytesSize(2, getTokenBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, readnum_);
+          .computeBytesSize(3, getActoridBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, readnum_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1083,12 +1170,14 @@ public final class AppMessage {
 
       public Builder clear() {
         super.clear();
-        token_ = "";
+        id_ = 2;
         bitField0_ = (bitField0_ & ~0x00000001);
-        id_ = "";
+        token_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        readnum_ = 0;
+        actorid_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
+        readnum_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -1120,13 +1209,17 @@ public final class AppMessage {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.token_ = token_;
+        result.id_ = id_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.id_ = id_;
+        result.token_ = token_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
+        }
+        result.actorid_ = actorid_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
         }
         result.readnum_ = readnum_;
         result.bitField0_ = to_bitField0_;
@@ -1145,14 +1238,17 @@ public final class AppMessage {
 
       public Builder mergeFrom(com.example.allen.muhanmaisi_query.AppMessage.ActorInfo other) {
         if (other == com.example.allen.muhanmaisi_query.AppMessage.ActorInfo.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
         if (other.hasToken()) {
-          bitField0_ |= 0x00000001;
+          bitField0_ |= 0x00000002;
           token_ = other.token_;
           onChanged();
         }
-        if (other.hasId()) {
-          bitField0_ |= 0x00000002;
-          id_ = other.id_;
+        if (other.hasActorid()) {
+          bitField0_ |= 0x00000004;
+          actorid_ = other.actorid_;
           onChanged();
         }
         if (other.hasReadnum()) {
@@ -1163,18 +1259,6 @@ public final class AppMessage {
       }
 
       public final boolean isInitialized() {
-        if (!hasToken()) {
-          
-          return false;
-        }
-        if (!hasId()) {
-          
-          return false;
-        }
-        if (!hasReadnum()) {
-          
-          return false;
-        }
         return true;
       }
 
@@ -1197,15 +1281,47 @@ public final class AppMessage {
       }
       private int bitField0_;
 
-      private java.lang.Object token_ = "";
+      private int id_ = 2;
       /**
-       * <code>required string token = 1;</code>
+       * <code>optional int32 id = 1 [default = 2];</code>
        */
-      public boolean hasToken() {
+      public boolean hasId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string token = 1;</code>
+       * <code>optional int32 id = 1 [default = 2];</code>
+       */
+      public int getId() {
+        return id_;
+      }
+      /**
+       * <code>optional int32 id = 1 [default = 2];</code>
+       */
+      public Builder setId(int value) {
+        bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 id = 1 [default = 2];</code>
+       */
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 2;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object token_ = "";
+      /**
+       * <code>optional string token = 2;</code>
+       */
+      public boolean hasToken() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string token = 2;</code>
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -1222,7 +1338,7 @@ public final class AppMessage {
         }
       }
       /**
-       * <code>required string token = 1;</code>
+       * <code>optional string token = 2;</code>
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -1238,59 +1354,59 @@ public final class AppMessage {
         }
       }
       /**
-       * <code>required string token = 1;</code>
+       * <code>optional string token = 2;</code>
        */
       public Builder setToken(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  bitField0_ |= 0x00000002;
         token_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string token = 1;</code>
+       * <code>optional string token = 2;</code>
        */
       public Builder clearToken() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000002);
         token_ = getDefaultInstance().getToken();
         onChanged();
         return this;
       }
       /**
-       * <code>required string token = 1;</code>
+       * <code>optional string token = 2;</code>
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  bitField0_ |= 0x00000002;
         token_ = value;
         onChanged();
         return this;
       }
 
-      private java.lang.Object id_ = "";
+      private java.lang.Object actorid_ = "";
       /**
-       * <code>required string id = 2;</code>
+       * <code>optional string actorid = 3;</code>
        */
-      public boolean hasId() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+      public boolean hasActorid() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required string id = 2;</code>
+       * <code>optional string actorid = 3;</code>
        */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
+      public java.lang.String getActorid() {
+        java.lang.Object ref = actorid_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
-            id_ = s;
+            actorid_ = s;
           }
           return s;
         } else {
@@ -1298,84 +1414,84 @@ public final class AppMessage {
         }
       }
       /**
-       * <code>required string id = 2;</code>
+       * <code>optional string actorid = 3;</code>
        */
       public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
+          getActoridBytes() {
+        java.lang.Object ref = actorid_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          id_ = b;
+          actorid_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>required string id = 2;</code>
+       * <code>optional string actorid = 3;</code>
        */
-      public Builder setId(
+      public Builder setActorid(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
-        id_ = value;
+  bitField0_ |= 0x00000004;
+        actorid_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string id = 2;</code>
+       * <code>optional string actorid = 3;</code>
        */
-      public Builder clearId() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        id_ = getDefaultInstance().getId();
+      public Builder clearActorid() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        actorid_ = getDefaultInstance().getActorid();
         onChanged();
         return this;
       }
       /**
-       * <code>required string id = 2;</code>
+       * <code>optional string actorid = 3;</code>
        */
-      public Builder setIdBytes(
+      public Builder setActoridBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
-        id_ = value;
+  bitField0_ |= 0x00000004;
+        actorid_ = value;
         onChanged();
         return this;
       }
 
       private int readnum_ ;
       /**
-       * <code>required int32 readnum = 3;</code>
+       * <code>optional int32 readnum = 4;</code>
        */
       public boolean hasReadnum() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>required int32 readnum = 3;</code>
+       * <code>optional int32 readnum = 4;</code>
        */
       public int getReadnum() {
         return readnum_;
       }
       /**
-       * <code>required int32 readnum = 3;</code>
+       * <code>optional int32 readnum = 4;</code>
        */
       public Builder setReadnum(int value) {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         readnum_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int32 readnum = 3;</code>
+       * <code>optional int32 readnum = 4;</code>
        */
       public Builder clearReadnum() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         readnum_ = 0;
         onChanged();
         return this;
@@ -1411,11 +1527,12 @@ public final class AppMessage {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\020AppMessage.proto\"\'\n\005Login\022\014\n\004name\030\001 \002(" +
-      "\t\022\020\n\010password\030\002 \002(\t\"7\n\tActorInfo\022\r\n\005toke" +
-      "n\030\001 \002(\t\022\n\n\002id\030\002 \002(\t\022\017\n\007readnum\030\003 \002(\005B0\n\"" +
-      "com.example.allen.muhanmaisi_queryB\nAppM" +
-      "essage"
+      "\n\020AppMessage.proto\"6\n\005Login\022\r\n\002id\030\001 \001(\005:" +
+      "\0011\022\014\n\004name\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\"K\n\tAc" +
+      "torInfo\022\r\n\002id\030\001 \001(\005:\0012\022\r\n\005token\030\002 \001(\t\022\017\n" +
+      "\007actorid\030\003 \001(\t\022\017\n\007readnum\030\004 \001(\005B0\n\"com.e" +
+      "xample.allen.muhanmaisi_queryB\nAppMessag" +
+      "e"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1434,13 +1551,13 @@ public final class AppMessage {
     internal_static_Login_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Login_descriptor,
-        new java.lang.String[] { "Name", "Password", });
+        new java.lang.String[] { "Id", "Name", "Password", });
     internal_static_ActorInfo_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_ActorInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ActorInfo_descriptor,
-        new java.lang.String[] { "Token", "Id", "Readnum", });
+        new java.lang.String[] { "Id", "Token", "Actorid", "Readnum", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

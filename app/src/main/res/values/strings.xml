@@ -4,5 +4,5 @@
         <item>阅读</item>
         <item>签到</item>
     </string-array>
-    <string name="ipstr">"http://192.168.1.104:3000/"</string>
+    <string name="ipstr">"http://192.168.106.60:3000/"</string>
 </resources>

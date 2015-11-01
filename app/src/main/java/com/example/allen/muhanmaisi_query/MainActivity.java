@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        httpAsynClient.login();
+        httpAsynClient.login("allen", "123456");
 
         String ss = getPackageName();
 
@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
             if (isLoadFinsh == false) {
                 return true;
             }
+
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, TableShow.class);
             startActivity(intent);

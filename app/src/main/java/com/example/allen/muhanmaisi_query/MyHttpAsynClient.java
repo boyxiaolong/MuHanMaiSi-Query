@@ -1,40 +1,28 @@
 package com.example.allen.muhanmaisi_query;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.BinaryHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
-import cz.msebera.android.httpclient.Header;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.entity.StringEntity;
 
 /**
  * Created by allen on 15/10/29.
  */
 
 public class MyHttpAsynClient {
-    public static AsyncHttpClient client = new AsyncHttpClient();
     public static String url;
+    public static AsyncHttpClient client = new AsyncHttpClient();
 
-    public void login(){
+    public void login(String name, String pwd){
         try {
-            AppMessage.Login login = AppMessage.Login.newBuilder()
-                    .setName("allen")
-                    .setPassword(".m").build();
-
-
-            String loginurl = url + "login";
-
-            String[] sendData = new String[]{login.toString()};
-
-            client.post(loginurl, new BinaryHttpResponseHandler(sendData) {
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                    int a = 1;
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                    int a = 2;
-                }
-            });
+            String loginurl = url + "/login";
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("name", name);
+            jsonObject.put("pwd", pwd);
+            StringEntity tmpstr = new StringEntity(jsonObject.toString());
+            client.post(null, loginurl, tmpstr, "application/json", new JsonHttpResponseHandler());
         }
         catch (Exception e){
             e.printStackTrace();
