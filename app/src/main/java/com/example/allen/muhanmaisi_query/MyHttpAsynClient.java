@@ -5,6 +5,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONObject;
 
+import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 /**
@@ -18,11 +19,16 @@ public class MyHttpAsynClient {
     public void login(String name, String pwd){
         try {
             String loginurl = url + "/login";
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("name", name);
-            jsonObject.put("pwd", pwd);
-            StringEntity tmpstr = new StringEntity(jsonObject.toString());
-            client.post(null, loginurl, tmpstr, "application/json", new JsonHttpResponseHandler());
+            final msg.login login = new msg().new login();
+            login.set_name_("allen");
+            login.set_pwd_("123456");
+            StringEntity tmpstr = new StringEntity(login.tojson());
+            client.post(null, loginurl, tmpstr, "application/json", new JsonHttpResponseHandler(){
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    msg.actor_info actor_info_ = new msg().new actor_info();
+                    actor_info_.fromjson(response);
+                }
+            });
         }
         catch (Exception e){
             e.printStackTrace();

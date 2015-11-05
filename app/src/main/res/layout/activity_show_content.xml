@@ -9,22 +9,35 @@
     android:layout_width="fill_parent"
     android:layout_height="45dip">
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
+        android:layout_width="55dp"
+        android:layout_weight="1"
         android:id="@+id/lastpage"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:text="下一页"
+        android:layout_alignParentTop="true"
+        android:text=""
+        android:background="@drawable/forwad"
+        android:adjustViewBounds="true"
         android:onClick="nextPage"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/playmusic"
+        android:text="播放"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:layout_height="25dp"
+        android:layout_width="55dp"
         android:id="@+id/nextpage"
+        android:text=""
+        android:onClick="prePage"
+        android:adjustViewBounds="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:text="上一页"
-        android:onClick="prePage"/>
+        android:layout_alignParentStart="true"
+        android:background="@drawable/back"/>
 </RelativeLayout>
 
     android:divide="@drawable/spacer_medium"
